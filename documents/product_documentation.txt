@@ -1,0 +1,19 @@
+Product Name: YUKO Review Platform
+
+YUKO is a SaaS review management platform that supports WooCommerce and Shopify stores.
+
+Authentication:
+The application uses JWT based authentication.
+Users login using email and password.
+Access tokens are generated after successful authentication.
+
+Review Workflow:
+Customers can submit product reviews.
+Reviews go through moderation before being displayed publicly.
+
+Database:
+PostgreSQL is used as the primary database.
+Redis is used for caching frequently accessed review data.
+
+Deployment:
+The backend application is deployed using Docker containers.
