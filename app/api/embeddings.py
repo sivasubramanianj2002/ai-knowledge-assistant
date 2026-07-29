@@ -1,18 +1,18 @@
-from fastapi import APIRouter
+from flask import Blueprint, jsonify
 
 from app.services.embedding_service import generate_embedding
 
-router = APIRouter()
+router = Blueprint("embeddings", __name__)
 
 
-@router.get("/embedding")
+@router.route("/embedding", methods=["GET"])
 def test_embedding():
 
     vector = generate_embedding(
         "JWT authentication is used."
     )
 
-    return {
+    return jsonify({
         "dimension": len(vector),
         "first_10_values": vector[:10]
-    }
+    })

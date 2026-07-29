@@ -1,5 +1,4 @@
-fastapi
-uvicorn
+flask
 python-dotenv
 
 google-generativeai

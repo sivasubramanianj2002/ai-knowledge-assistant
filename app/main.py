@@ -1,33 +1,29 @@
-from fastapi import FastAPI
+import sys
+from pathlib import Path
 
-from app.api import documents
-from app.api import embeddings
-from app.api import indexing
-from app.api import chat
-app = FastAPI(
-    title="AI Onboarding Assistant",
-    description="Product documentation based AI assistant",
-    version="1.0"
-)
+# Ensure project root is in Python path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from flask import Flask, jsonify
+
+from app.api import chat, documents, embeddings, indexing
 
 
-# Register API routes
-app.include_router(
-    documents.router
-)
-app.include_router(
-    embeddings.router
-)
+app = Flask(__name__)
 
-app.include_router(
-    indexing.router
-)
-app.include_router(
-    chat.router
-)
+# Register API routes (Blueprints)
+app.register_blueprint(documents.router)
+app.register_blueprint(embeddings.router)
+app.register_blueprint(indexing.router)
+app.register_blueprint(chat.router)
 
-@app.get("/")
+
+@app.route("/", methods=["GET"])
 def home():
-    return {
+    return jsonify({
         "message": "AI Onboarding Assistant Running"
-    }
+    })
+
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=8000, debug=True)
